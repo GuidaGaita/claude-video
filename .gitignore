@@ -1,0 +1,11 @@
+﻿# O repositorio guarda so as skills e o README.
+# Brutos, finais, trabalho, transcricoes, audio, projetos HyperFrames e o gosto.md pessoal ficam fora.
+/*
+!/.gitignore
+!/README.md
+!/.claude/
+/.claude/*
+!/.claude/skills/
+
+__pycache__/
+*.pyc

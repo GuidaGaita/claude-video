@@ -1,0 +1,40 @@
+{
+  "nome": "GuidaGaita",
+  "fonte_da_identidade": "https://guidagaita.com/styles.css (:root)",
+  "cores": {
+    "void": "#241A10",
+    "dust": "#2F2417",
+    "leather": "#453524",
+    "leather2": "#573F29",
+    "hide": "#6E5238",
+    "ember": "#E2622C",
+    "emberHi": "#FF8544",
+    "gold": "#E0A83E",
+    "goldHi": "#F7CC72",
+    "rust": "#A84428",
+    "bone": "#F4EBDD",
+    "sand": "#B8A692",
+    "ash": "#8A7768"
+  },
+  "fontes": {
+    "corpo": {"familia": "Outfit", "arquivo": "Outfit.ttf", "peso": 800, "pesos": "100 900"},
+    "enfase": {"familia": "Alfa Slab One", "arquivo": "AlfaSlabOne-Regular.ttf", "peso": 400},
+    "cartaz": {"familia": "Rye", "arquivo": "Rye-Regular.ttf", "peso": 400}
+  },
+  "estilos": {
+    "couro": {
+      "descricao": "placa de couro escuro com borda de brasa (como os cartoes do site); palavra falada acende em ouro",
+      "placa": true,
+      "texto": "bone",
+      "ativa": "goldHi",
+      "enfase": "emberHi"
+    },
+    "limpo": {
+      "descricao": "sem placa, texto osso com sombra forte; para fundos escuros ou quando a placa pesa",
+      "placa": false,
+      "texto": "bone",
+      "ativa": "goldHi",
+      "enfase": "emberHi"
+    }
+  }
+}

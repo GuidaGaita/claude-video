@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=__W__, height=__H__" />
+    <title>Legenda __MARCA__</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+__FONTFACE__
+      :root {
+__VARS__
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      #legenda {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      /* Trilho: uma frase curta por vez, centrada na base do quadro. */
+      .grupo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: var(--margem);
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+      }
+
+      .placa {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: baseline;
+        column-gap: 0.36em;
+        max-width: var(--largura-max);
+        padding: 0.14em 0.48em 0.2em;
+        border-radius: 0.2em;
+        font-family: "__CORPO__", sans-serif;
+        font-weight: __PESO_CORPO__;
+        font-size: var(--tamanho);
+        line-height: 1.12;
+        color: var(--texto);
+      }
+
+      .com-placa .placa {
+        background: rgba(36, 26, 16, 0.8);
+        box-shadow:
+          inset 0 0 0 0.03em rgba(226, 98, 44, 0.34),
+          0 0.08em 0.3em rgba(0, 0, 0, 0.4);
+      }
+
+      .sem-placa .placa {
+        text-shadow:
+          0 0.04em 0 var(--void),
+          0 0 0.14em rgba(0, 0, 0, 0.9),
+          0 0.06em 0.22em rgba(0, 0, 0, 0.75);
+      }
+
+      .p {
+        display: inline-block;
+        transform-origin: 50% 85%;
+      }
+
+      .p.enfase {
+        font-family: "__ENFASE__", serif;
+        font-weight: 400;
+        font-size: 1.06em;
+        color: var(--enfase);
+      }
+
+      /* Cartaz: momento forte, raro, em letra de faroeste. */
+      .cartaz {
+        position: absolute;
+        top: 12%;
+        width: 44%;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+      }
+
+      .cartaz.esquerda {
+        left: 3%;
+      }
+
+      .cartaz.direita {
+        right: 3%;
+      }
+
+      .cartaz.centro {
+        left: 28%;
+      }
+
+      .cartaz-miolo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.12em;
+        font-family: "__CARTAZ__", serif;
+        font-size: var(--tamanho-cartaz);
+        line-height: 1.02;
+        text-align: center;
+        color: var(--goldHi);
+        text-shadow:
+          0 0.05em 0 var(--rust),
+          0 0.1em 0.3em rgba(0, 0, 0, 0.65);
+      }
+
+      .cartaz-estrela {
+        font-size: 0.34em;
+        color: var(--ember);
+      }
+
+      .cartaz-regua {
+        width: 70%;
+        height: 0.05em;
+        border-radius: 0.03em;
+        background: var(--ember);
+        box-shadow: 0 0.04em 0.12em rgba(0, 0, 0, 0.5);
+      }
+
+      /* Faixa livre do topo (abaixo da interface do app, acima do rosto). */
+      .topo {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: var(--topo);
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+      }
+
+      .cartaz.topo {
+        width: auto;
+      }
+
+      /* Tabuleta de couro atras do texto do topo: o teto/fundo claro apaga letra clara. */
+      .topo .cartaz-miolo,
+      .passos-miolo,
+      .chamada-miolo {
+        padding: 0.28em 0.5em 0.34em;
+        border-radius: 0.18em;
+        background: rgba(36, 26, 16, 0.84);
+        box-shadow:
+          inset 0 0 0 0.035em rgba(226, 98, 44, 0.45),
+          0 0.08em 0.3em rgba(0, 0, 0, 0.45);
+      }
+
+      .titulo-miolo {
+        max-width: 100%;
+        padding: 0.16em 0.5em 0.22em;
+        border-radius: 0.14em;
+        background: var(--ember);
+        box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.45), inset 0 -0.06em 0 var(--rust);
+        font-family: "__ENFASE__", serif;
+        font-size: var(--tamanho-titulo);
+        line-height: 1.05;
+        text-align: center;
+        color: var(--bone);
+        text-shadow: 0 0.04em 0 var(--rust);
+      }
+
+      .pergunta-miolo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em;
+        max-width: 100%;
+        padding: 0.55em 0.75em 0.65em;
+        border-radius: 0.45em;
+        background: var(--bone);
+        box-shadow: 0 0.12em 0.4em rgba(0, 0, 0, 0.5), inset 0 0 0 0.05em rgba(226, 98, 44, 0.45);
+        font-family: "__CORPO__", sans-serif;
+        font-size: var(--tamanho-pergunta);
+        text-align: center;
+      }
+
+      .pergunta-cabecalho {
+        font-weight: 700;
+        font-size: 0.48em;
+        letter-spacing: 0.12em;
+        color: var(--ember);
+      }
+
+      .pergunta-texto {
+        font-weight: 800;
+        line-height: 1.15;
+        color: var(--void);
+      }
+
+      .passos-miolo {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.22em;
+        font-family: "__ENFASE__", serif;
+        font-size: var(--tamanho-passos);
+        line-height: 1.05;
+        color: var(--bone);
+        text-shadow: 0 0.05em 0.16em rgba(0, 0, 0, 0.85);
+      }
+
+      /* No vertical os passos vao numa linha so: em coluna a placa cresce e cobre a cabeca. */
+      .passos-miolo.em-linha {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.55em;
+      }
+
+      .passo {
+        display: flex;
+        align-items: center;
+        gap: 0.35em;
+        white-space: nowrap;
+        opacity: 0;
+      }
+
+      .passo-numero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.25em;
+        height: 1.25em;
+        border-radius: 50%;
+        background: var(--ember);
+        box-shadow: 0 0.06em 0.2em rgba(0, 0, 0, 0.5);
+        font-size: 0.8em;
+        text-shadow: none;
+      }
+
+      .chamada-miolo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25em;
+        font-family: "__ENFASE__", serif;
+        font-size: var(--tamanho-chamada);
+        line-height: 1.05;
+        text-align: center;
+        color: var(--goldHi);
+        text-shadow: 0 0.05em 0 var(--rust), 0 0.1em 0.3em rgba(0, 0, 0, 0.7);
+      }
+
+      .chamada-seta {
+        width: 0.9em;
+        height: 0.9em;
+      }
+
+      .chamada-seta-desenho {
+        width: 100%;
+        height: 100%;
+        border-right: 0.18em solid var(--goldHi);
+        border-bottom: 0.18em solid var(--goldHi);
+        transform: rotate(45deg);
+        filter: drop-shadow(0 0.06em 0.1em rgba(0, 0, 0, 0.6));
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="legenda"
+      class="__CLASSE_ESTILO__"
+      data-composition-id="legenda"
+      data-start="0"
+      data-duration="__DURACAO__"
+      data-fps="__FPS__"
+      data-width="__W__"
+      data-height="__H__"
+    ></div>
+
+    <script id="dados" type="application/json">__DADOS__</script>
+    <script>
+      var DADOS = JSON.parse(document.getElementById("dados").textContent);
+      var S = DADOS.s;
+      var RAIZ = document.getElementById("legenda");
+      var REGUA = document.createElement("canvas").getContext("2d");
+
+      function largura(texto, familia, peso, tamanho) {
+        REGUA.font = peso + " " + tamanho + "px \"" + familia + "\"";
+        return REGUA.measureText(texto).width;
+      }
+
+      function garantirFontes() {
+        var f = DADOS.fontes;
+        var pedidos = [
+          f.corpo.peso + " 80px \"" + f.corpo.familia + "\"",
+          "400 80px \"" + f.enfase.familia + "\"",
+          "400 80px \"" + f.cartaz.familia + "\"",
+        ];
+        return Promise.all(pedidos.map(function (p) { return document.fonts.load(p); })).then(function () {
+          pedidos.forEach(function (p) {
+            // Fonte que nao carrega cai em Arial sem erro: falhar alto e melhor que entregar errado.
+            if (!document.fonts.check(p)) throw new Error("fonte nao carregou: " + p);
+          });
+        });
+      }
+
+      function montarGrupos(tl) {
+        var f = DADOS.fontes;
+        var tamanho = DADOS.tamanho * S;
+        var maximo = DADOS.w * 0.86;
+        DADOS.grupos.forEach(function (g, gi) {
+          var grupo = document.createElement("div");
+          grupo.className = "grupo";
+          grupo.id = "grupo-" + gi;
+          var placa = document.createElement("div");
+          placa.className = "placa";
+          var total = tamanho * 0.96;
+          g.palavras.forEach(function (p, pi) {
+            var span = document.createElement("span");
+            span.className = p.enfase ? "p enfase" : "p";
+            span.id = "palavra-" + gi + "-" + pi;
+            span.textContent = p.t;
+            placa.appendChild(span);
+            total += p.enfase
+              ? largura(p.t, f.enfase.familia, 400, tamanho * 1.06)
+              : largura(p.t, f.corpo.familia, f.corpo.peso, tamanho);
+            total += pi ? tamanho * 0.36 : 0;
+          });
+          // Frase larga demais: reduz a letra (ate 72%) antes de quebrar em duas linhas.
+          if (total > maximo) placa.style.fontSize = tamanho * Math.max(0.72, maximo / total) + "px";
+          grupo.appendChild(placa);
+          RAIZ.appendChild(grupo);
+
+          tl.set(grupo, { opacity: 1 }, g.ini);
+          // "suave": so um fade curto; "viva": sobe e cresce (mais energia, mais distracao).
+          var viva = DADOS.animacao === "viva";
+          if (viva) tl.fromTo(placa, { y: 16 * S, opacity: 0 }, { y: 0, opacity: 1, duration: 0.14, ease: "power2.out" }, g.ini);
+          // "suave": a frase troca na hora; um fade curto vira um "fantasma" de 2 quadros por cima do video.
+          else tl.set(placa, { opacity: 1 }, g.ini);
+          g.palavras.forEach(function (p, pi) {
+            var span = document.getElementById("palavra-" + gi + "-" + pi);
+            var base = p.enfase ? DADOS.cor.enfase : DADOS.cor.texto;
+            var prox = g.palavras[pi + 1];
+            var liga = Math.max(g.ini, p.s - 0.03);
+            var desliga = Math.min(g.fim - 0.02, prox ? Math.max(prox.s - 0.03, liga + 0.08) : p.e + 0.18);
+            tl.to(span, { color: DADOS.cor.ativa, scale: viva ? 1.07 : 1, duration: viva ? 0.07 : 0.05, ease: "power1.out" }, liga);
+            if (desliga > liga + 0.07) {
+              tl.to(span, { color: base, scale: 1, duration: viva ? 0.14 : 0.1, ease: "power1.inOut" }, desliga);
+            }
+          });
+          tl.set(grupo, { opacity: 0 }, g.fim);
+        });
+      }
+
+      function bloco(tipo, i, posicao) {
+        var el = document.createElement("div");
+        el.className = posicao === "topo" ? "topo" : "cartaz " + posicao;
+        el.id = tipo + "-" + i;
+        var miolo = document.createElement("div");
+        miolo.className = tipo + "-miolo";
+        el.appendChild(miolo);
+        RAIZ.appendChild(el);
+        return { el: el, miolo: miolo };
+      }
+
+      function texto(classe, conteudo) {
+        var d = document.createElement("div");
+        d.className = classe;
+        d.textContent = conteudo;
+        return d;
+      }
+
+      function montarElementos(tl) {
+        var S = DADOS.s;
+        DADOS.elementos.forEach(function (e, i) {
+          if (e.tipo === "cartaz") return montarCartaz(tl, e, i);
+          var b = bloco(e.tipo, i, "topo");
+          tl.set(b.el, { opacity: 1 }, e.ini);
+          if (e.tipo === "titulo") {
+            b.miolo.textContent = e.texto;
+            tl.fromTo(b.miolo, { scale: 1.25, rotation: -6, opacity: 0 },
+              { scale: 1, rotation: -2, opacity: 1, duration: 0.3, ease: "back.out(2)" }, e.ini);
+          } else if (e.tipo === "pergunta") {
+            b.miolo.appendChild(texto("pergunta-cabecalho", e.cabecalho));
+            b.miolo.appendChild(texto("pergunta-texto", e.texto));
+            tl.fromTo(b.miolo, { y: 40 * S, scale: 0.85, opacity: 0 },
+              { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, e.ini);
+          } else if (e.tipo === "passos") {
+            var emLinha = DADOS.h > DADOS.w;
+            if (emLinha) b.miolo.classList.add("em-linha");
+            e.itens.forEach(function (p, n) {
+              var passo = document.createElement("div");
+              passo.className = "passo";
+              passo.appendChild(texto("passo-numero", String(n + 1)));
+              passo.appendChild(texto("passo-texto", p.texto));
+              b.miolo.appendChild(passo);
+              tl.fromTo(passo, { x: (emLinha ? -20 : -50) * S, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, Math.max(e.ini, p.em));
+            });
+            // Linha larga demais: reduz a letra ate caber (a placa mede com todos os passos, mesmo invisiveis).
+            var largura = b.miolo.scrollWidth, maximo = DADOS.w * 0.9;
+            if (largura > maximo) {
+              b.miolo.style.fontSize = parseFloat(getComputedStyle(b.miolo).fontSize) * maximo / largura + "px";
+            }
+          } else if (e.tipo === "chamada") {
+            b.miolo.appendChild(texto("chamada-texto", e.texto));
+            var seta = document.createElement("div");
+            seta.className = "chamada-seta";
+            seta.appendChild(texto("chamada-seta-desenho", ""));
+            b.miolo.appendChild(seta);
+            tl.fromTo(b.miolo, { y: 30 * S, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, e.ini);
+            // Seta quicando para baixo, apontando o botao; numero par de idas e voltas termina no lugar.
+            var voltas = Math.max(0, Math.floor((e.fim - e.ini - 0.6) / 0.4 / 2) * 2 - 1);
+            if (voltas > 0) {
+              tl.to(seta, { y: 22 * S, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: voltas }, e.ini + 0.3);
+            }
+          }
+          tl.to(b.miolo, { opacity: 0, duration: 0.2, ease: "power2.in" }, e.fim - 0.2);
+          tl.set(b.el, { opacity: 0 }, e.fim);
+        });
+      }
+
+      function montarCartaz(tl, c, ci) {
+        var f = DADOS.fontes;
+        {
+          var cartaz = document.createElement("div");
+          cartaz.className = "cartaz " + c.posicao;
+          cartaz.id = "cartaz-" + ci;
+          var miolo = document.createElement("div");
+          miolo.className = "cartaz-miolo";
+          var estrela = document.createElement("div");
+          estrela.className = "cartaz-estrela";
+          estrela.textContent = "★";
+          var texto = document.createElement("div");
+          texto.textContent = c.texto;
+          var regua = document.createElement("div");
+          regua.className = "cartaz-regua";
+          miolo.appendChild(estrela);
+          miolo.appendChild(texto);
+          miolo.appendChild(regua);
+          var base = DADOS.tamanhoCartaz * S;
+          var w = largura(c.texto, f.cartaz.familia, 400, base);
+          var maximo = DADOS.w * (c.posicao === "topo" ? 0.76 : 0.42);  // descontada a tabuleta
+          if (w > maximo) miolo.style.fontSize = base * Math.max(0.6, maximo / w) + "px";
+          cartaz.appendChild(miolo);
+          RAIZ.appendChild(cartaz);
+
+          tl.set(cartaz, { opacity: 1 }, c.ini);
+          tl.fromTo(
+            miolo,
+            { scale: 1.35, rotation: -5, opacity: 0 },
+            { scale: 1, rotation: -2, opacity: 1, duration: 0.28, ease: "back.out(2.2)" },
+            c.ini,
+          );
+          tl.to(miolo, { opacity: 0, y: -12 * S, duration: 0.22, ease: "power2.in" }, c.fim - 0.22);
+          tl.set(cartaz, { opacity: 0 }, c.fim);
+        }
+      }
+
+      garantirFontes().then(function () {
+        var tl = gsap.timeline({ paused: true });
+        montarGrupos(tl);
+        montarElementos(tl);
+        window.__timelines["legenda"] = tl;
+      });
+    </script>
+  </body>
+</html>
